@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col">
                             <input type="text" name="keyword" id="keyword">
-                            <button id="search-button">Tìm kiếm</button>
+                            <button id="search-button" >Tìm kiếm</button>
                         </div>
                     </div>
                     <div class="row">
@@ -76,11 +76,14 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div id="GATA-suggestion"  style="background-color: rgba(0, 0, 0, 0.05);" class="d-none">
-                                <blockquote class="blockquote text-left">
-                                    <p class="mb-4">This is a simple hero unit</p>
-                                    <footer class="blockquote-footer">free free</footer>
-                                </blockquote>                                
+                            <div id="GATA-suggestion"  style="background-color: rgba(0, 0, 0, 0.05);" class="jumbotron d-none">
+                                    <h1 class="display-6">hello - /həˈləʊ/</h1>
+                                    <p class="lead">Âm /ə/ luôn giữ vai trò thứ âm.</p>
+                                    <hr class="my-4">
+                                    <p>Trích nối dung trong ứng dụng GATA: Học phát âm tiếng Anh.</p>
+                                    <p class="lead my-4">
+                                        <button>GATA trên Google Play</button>
+                                    </p>
                             </div>                            
                         </div>
                     </div>
@@ -131,7 +134,8 @@
         <!-- Copyright -->
       </footer>
     <script>
-        const WEBSITE_URL = "https://ttnoi.com"
+        const WEBSITE_URL = "https://ttnoi.com";
+        const GATA_ON_GOOGLE_PLAY_URL = "https://bit.ly/gata-on-google-play-6381";
 
         // 2. This code loads the widget API code asynchronously.
         var tag = document.createElement('script');
@@ -244,35 +248,65 @@
         }
 
         function updateGATASuggestion(keyword) {
-            // <div id="GATA-suggestion"  style="background-color: rgba(0, 0, 0, 0.05);" class="d-none">
-            //                     <blockquote class="blockquote text-left">
-            //                         <p class="mb-4">This is a simple hero unit</p>
-            //                         <footer class="blockquote-footer">free free</footer>
-            //                     </blockquote>                                
-            //                 </div>
 
             var GATASuggestion = document.getElementById('GATA-suggestion');
-            GATASuggestion.classList.remove("d-none");
             while (GATASuggestion.firstChild) {
                 GATASuggestion.removeChild(GATASuggestion.firstChild);
             }
-
-            
+           
             var [phonetics, suggestionList] = loadSuggestionLib(keyword);
             if (suggestionList && suggestionList.length > 0) {
-                titleTag = document.createElement("h1");
-                titleTag.classList.add("display-4");
-                titleContent = document.createTextNode(keyword + "  /" + phonetics + "/");
-                titleTag.appendChild(titleContent);
-                GATASuggestion.appendChild(titleTag);
+                if (GATASuggestion.classList.contains("d-none")) {
+                    GATASuggestion.classList.remove("d-none");
+                }               
 
+                // <h1 class="display-4">hello - /həˈləʊ/</h1>
+                titleTag = document.createElement("h6");
+                titleTag.classList.add("display-6")
+                titleContent = document.createTextNode(keyword + "  /" + phonetics + "/");
+                titleTag.appendChild(titleContent);                
+                GATASuggestion.appendChild(titleTag);
+                
+                // <p class="lead">Âm /ə/ luôn giữ vai trò thứ âm.</p>
                 suggestionList.forEach(suggestion => {
-                    var paragaph = document.createElement("p");
-                    paragaph.classList.add("lead");
-                    var paragaphText = document.createTextNode(suggestion);
-                    paragaph.appendChild(paragaphText);
-                    GATASuggestion.appendChild(paragaph)
+                    var suggestionTag = document.createElement("p");
+                    suggestionTag.classList.add("lead");
+                    var suggestionText = document.createTextNode(suggestion);
+                    suggestionTag.appendChild(suggestionText);
+                    GATASuggestion.appendChild(suggestionTag)
                 });
+
+                // <hr class="my-4">
+                var hrTag = document.createElement("hr");
+                hrTag.classList.add("my-4");
+                GATASuggestion.appendChild(hrTag);
+
+                // <p>Trích nối dung trong ứng dụng GATA: Học phát âm tiếng Anh.</p>
+                var suggestionDescTag = document.createElement("p");
+                var suggestionDescText = document.createTextNode("Trích nội dung trong ứng dụng GATA: Học phát âm tiếng Anh.");
+                suggestionDescTag.appendChild(suggestionDescText);
+                GATASuggestion.appendChild(suggestionDescTag);
+                
+                //  <p class="lead">
+                //      <button id = "">GATA trên Google Play</button>
+                //  </p>
+                var actionTag = document.createElement("p");
+                actionTag.classList.add("lead");
+                actionTag.classList.add("my-4");                
+                var buttonTag = document.createElement("button");
+                buttonTag.onclick = function(){
+                    window.open(GATA_ON_GOOGLE_PLAY_URL, '_blank').focus();
+                }
+                buttonTag.id = "gata-google-play";
+                var buttonText = document.createTextNode("GATA trên Google Play");
+                buttonTag.appendChild(buttonText);
+                actionTag.appendChild(buttonTag);
+                GATASuggestion.appendChild(actionTag);
+
+            } else {
+                if (!GATASuggestion.classList.contains("d-none")) {
+                    GATASuggestion.classList.add("d-none");
+                }
             }
         }
 
