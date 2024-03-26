@@ -37,19 +37,19 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-4">
-                                        <input type="radio" name="talent" id="donald-trump" class="talentCheckbox"
+                                        <input type="radio" name="speaker" id="donald-trump" class="speakerCheckbox"
                                             value="donaldtrump" checked="true">
                                         <label>Donald Trump</label>
                                     </div>
 
                                     <div class="col-4">
-                                        <input type="radio" name="talent" id="barack-obama" class="talentCheckbox"
+                                        <input type="radio" name="speaker" id="barack-obama" class="speakerCheckbox"
                                             value="barackobama">
                                         <label>Barack Obama</label>
                                     </div>
 
                                     <div class="col-4">
-                                        <input type="radio" name="talent" id="hillary-clinton" class="talentCheckbox"
+                                        <input type="radio" name="speaker" id="hillary-clinton" class="speakerCheckbox"
                                             value="hillaryclinton">
                                         <label>Hillary Clinton</label>
                                     </div>
@@ -148,9 +148,9 @@
         }
 
         // 4. Process the query
-        function search(keyword, talent) {
+        function search(keyword, speaker) {
             // 4.1 Fetch the result from Youglish
-            widget.fetch(keyword + " #" + talent, "english", "us");
+            widget.fetch(keyword + " #" + speaker, "english", "us");
 
             // 4.2 Change title
             document.title = keyword + ": Luyện phát âm cùng Tổng Thống Mỹ."
@@ -159,7 +159,7 @@
             updateGATASuggestion(keyword);
 
             // 4.4 Change share url
-            updateShareUrl(keyword, talent);
+            updateShareUrl(keyword, speaker);
 
             // 4.5 Load comment system
             loadCommentSystem(keyword);
@@ -171,9 +171,9 @@
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const preDefinedKeyword = urlParams.get('keyword');
-            const preDefinedTalent = urlParams.get('talent');
+            const preDefinedSpeaker = urlParams.get('speaker');
 
-            switch (preDefinedTalent) {
+            switch (preDefinedSpeaker) {
                 case "donaldtrump":
                     document.getElementById("donald-trump").checked = true;
                     break;
@@ -205,9 +205,9 @@
         // Querying when user presses the "Tim kiem" button.
         document.getElementById("search-button").onclick = function () {
             var keyword = document.getElementById("keyword").value;
-            var talent = document.querySelector('.talentCheckbox:checked').value;
-            if (keyword != null && keyword != "" && talent != null) {
-                search(keyword, talent);
+            var speaker = document.querySelector('.speakerCheckbox:checked').value;
+            if (keyword != null && keyword != "" && speaker != null) {
+                search(keyword, speaker);
             }
         };
 
@@ -233,8 +233,8 @@
             });
         }
 
-        function updateShareUrl(keyword, talent) {
-            var url = WEBSITE_URL + "?talent=" + talent + "&keyword=" + keyword;
+        function updateShareUrl(keyword, speaker) {
+            var url = WEBSITE_URL + "?speaker=" + speaker + "&keyword=" + keyword;
             document.getElementById("share-url").textContent = url;
         }
 
