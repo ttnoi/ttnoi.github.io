@@ -330,7 +330,7 @@
             return ["h", "ə", "l", "əʊ"];
         };
 
-        function loadCommentSystem(keword) {
+        function loadCommentSystem(keyword) {
             var commentSystemTag = document.getElementById("comment-system");
             while (commentSystemTag.firstChild) {
                 commentSystemTag.removeChild(commentSystemTag.firstChild);
@@ -347,16 +347,16 @@
             // };
             var disqusScriptTag = document.createElement("script");
             disqusScriptTag.innerHTML = 
-                'var disqus_config = function () {' + 
-                'this.page.url = "'+ WEBSITE_URL +'?keyword='+ keyword + '"' + ';' +
-                'this.page.identifier = "' + keyword + '";' +
-                '};' + 
-                '(function() {' + 
-                'var d = document, s = d.createElement("script");' + 
-                's.src = "https://ttnoi.disqus.com/embed.js";' + 
-                's.setAttribute("data-timestamp", +new Date());' +
-                '(d.head || d.body).appendChild(s);' + 
-                '})();';
+                "var disqus_config = function () {" + 
+                "this.page.url = '"+ WEBSITE_URL +"?keyword="+ keyword + "'" + ";" +
+                "this.page.identifier = '" + keyword + "';" +
+                "};" + 
+                "(function() {" + 
+                "var d = document, s = d.createElement('script');" + 
+                "s.src = 'https://ttnoi.disqus.com/embed.js';" + 
+                "s.setAttribute('data-timestamp', +new Date());" +
+                "(d.head || d.body).appendChild(s);" + 
+                "})();";
             commentSystemTag.appendChild(disqusScriptTag);
 
         }
