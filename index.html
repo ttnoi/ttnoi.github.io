@@ -77,6 +77,7 @@
                     <div class="row">
                         <div class="col">
                             <div id="GATA-suggestion"  style="background-color: rgba(0, 0, 0, 0.05);" class="jumbotron d-none">
+                                <!-- The GATA suggestion system here -->
                             </div>                            
                         </div>
                     </div>
@@ -103,8 +104,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
-                            comment system
+                        <div id = "comment-system" class="col">
+                            <!-- The comment system here -->
                         </div>
                     </div>
                     <div class="row">
@@ -159,7 +160,7 @@
             updateShareUrl(keyword, talent);
 
             // 4.5 Load comment system
-
+            loadCommentSystem(keyword);
 
         }
 
@@ -334,6 +335,36 @@
             return ["h", "ə", "l", "əʊ"];
         };
 
+        function loadCommentSystem(keword) {
+            var commentSystemTag = document.getElementById("comment-system");
+            while (commentSystemTag.firstChild) {
+                commentSystemTag.removeChild(commentSystemTag.firstChild);
+            }
+
+            // <div id="disqus_thread"></div>
+            var disqusThreadTag = document.createElement("div");
+            disqusThreadTag.id = "disqus_thread";
+            commentSystemTag.appendChild(disqusThreadTag);
+
+            // var disqus_config = function () {
+            // this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            // this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            // };
+            var disqusScriptTag = document.createElement("script");
+            disqusScriptTag.innerHTML = 
+                'var disqus_config = function () {' + 
+                'this.page.url = "'+ WEBSITE_URL +'?keyword='+ keyword + '"' + ';' +
+                'this.page.identifier = "' + keyword + '";' +
+                '};' + 
+                '(function() {' + 
+                'var d = document, s = d.createElement("script");' + 
+                's.src = "https://ttnoi.disqus.com/embed.js";' + 
+                's.setAttribute("data-timestamp", +new Date());' +
+                '(d.head || d.body).appendChild(s);' + 
+                '})();';
+            commentSystemTag.appendChild(disqusScriptTag);
+
+        }
     </script>
 </body>
 
