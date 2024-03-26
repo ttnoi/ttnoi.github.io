@@ -187,7 +187,8 @@
                 document.getElementById("keyword").value = preDefinedKeyword;
                 document.getElementById("search-button").click();
             } else {
-                initializeShareUrl();
+                document.getElementById("keyword").value = "free";
+                document.getElementById("search-button").click();
             }
         }
         
@@ -228,12 +229,6 @@
             $("#success-copying-alert").fadeTo(2000, 500).slideUp(500, function() {
                 $("#success-copying-alert").slideUp(500);
             });            
-        }
-
-
-        function initializeShareUrl() {
-            var url = WEBSITE_URL;
-            document.getElementById("share-url").textContent = url;
         }
 
         function updateShareUrl(keyword, talent) {
