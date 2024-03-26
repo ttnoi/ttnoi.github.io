@@ -1,4 +1,4 @@
-<html  class="h-100">
+<html class="h-100">
 
 <head>
     <title>Luyện phát âm cùng Tổng Thống Mỹ.</title>
@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col">
                             <input type="text" name="keyword" id="keyword">
-                            <button id="search-button" >Tìm kiếm</button>
+                            <button id="search-button">Tìm kiếm</button>
                         </div>
                     </div>
                     <div class="row">
@@ -76,9 +76,10 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div id="GATA-suggestion"  style="background-color: rgba(0, 0, 0, 0.05);" class="jumbotron d-none">
+                            <div id="GATA-suggestion" style="background-color: rgba(0, 0, 0, 0.05);"
+                                class="jumbotron d-none">
                                 <!-- The GATA suggestion system here -->
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -91,9 +92,9 @@
                             <div id="share">
                                 <span id="share-url"></span>&nbsp;<button id="share-button">Copy để chia sẻ</button>
                             </div>
-                            <div class="alert alert-success d-none" id="success-copying-alert"  role="alert">
+                            <div class="alert alert-success d-none" id="success-copying-alert" role="alert">
                                 <strong>Đã copy url.</strong>
-                              </div>
+                            </div>
                         </div>
                     </div>
 
@@ -104,7 +105,7 @@
                     </div>
 
                     <div class="row">
-                        <div id = "comment-system" class="col">
+                        <div id="comment-system" class="col">
                             <!-- The comment system here -->
                         </div>
                     </div>
@@ -122,11 +123,11 @@
     <footer class="footer mt-auto bg-body-tertiary text-center text-lg-start">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-          © 2024 Bản quyền:
-          <a class="text-body" href="https://ttnoi.com/">ttnoi.com</a>
+            © 2024 Bản quyền:
+            <a class="text-body" href="https://ttnoi.com/">ttnoi.com</a>
         </div>
         <!-- Copyright -->
-      </footer>
+    </footer>
     <script>
         const WEBSITE_URL = "https://ttnoi.com";
         const GATA_ON_GOOGLE_PLAY_URL = "https://bit.ly/gata-on-google-play-6381";
@@ -191,7 +192,7 @@
                 document.getElementById("search-button").click();
             }
         }
-        
+
         // Querying when user presses "enter" on the keyword textbox.
         document.getElementById("keyword").addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
@@ -226,9 +227,9 @@
             navigator.clipboard.writeText(shareUrl.textContent);
 
             document.getElementById("success-copying-alert").classList.remove("d-none");
-            $("#success-copying-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-copying-alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#success-copying-alert").slideUp(500);
-            });            
+            });
         }
 
         function updateShareUrl(keyword, talent) {
@@ -242,20 +243,20 @@
             while (GATASuggestion.firstChild) {
                 GATASuggestion.removeChild(GATASuggestion.firstChild);
             }
-           
+
             var [phonetics, suggestionList] = loadSuggestionLib(keyword);
             if (suggestionList && suggestionList.length > 0) {
                 if (GATASuggestion.classList.contains("d-none")) {
                     GATASuggestion.classList.remove("d-none");
-                }               
+                }
 
                 // <h1 class="display-4">hello - /həˈləʊ/</h1>
                 titleTag = document.createElement("h6");
                 titleTag.classList.add("display-6")
                 titleContent = document.createTextNode(keyword + "  /" + phonetics + "/");
-                titleTag.appendChild(titleContent);                
+                titleTag.appendChild(titleContent);
                 GATASuggestion.appendChild(titleTag);
-                
+
                 // <p class="lead">Âm /ə/ luôn giữ vai trò thứ âm.</p>
                 suggestionList.forEach(suggestion => {
                     var suggestionTag = document.createElement("p");
@@ -275,15 +276,15 @@
                 var suggestionDescText = document.createTextNode("Trích nội dung trong ứng dụng GATA: Học phát âm tiếng Anh.");
                 suggestionDescTag.appendChild(suggestionDescText);
                 GATASuggestion.appendChild(suggestionDescTag);
-                
+
                 //  <p class="lead">
                 //      <button id = "">GATA trên Google Play</button>
                 //  </p>
                 var actionTag = document.createElement("p");
                 actionTag.classList.add("lead");
-                actionTag.classList.add("my-4");                
+                actionTag.classList.add("my-4");
                 var buttonTag = document.createElement("button");
-                buttonTag.onclick = function(){
+                buttonTag.onclick = function () {
                     window.open(GATA_ON_GOOGLE_PLAY_URL, '_blank').focus();
                 }
                 buttonTag.id = "gata-google-play";
@@ -346,16 +347,16 @@
             // this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
             // };
             var disqusScriptTag = document.createElement("script");
-            disqusScriptTag.innerHTML = 
-                "var disqus_config = function () {" + 
-                "this.page.url = '"+ WEBSITE_URL +"?keyword="+ keyword + "'" + ";" +
+            disqusScriptTag.innerHTML =
+                "var disqus_config = function () {" +
+                "this.page.url = '" + WEBSITE_URL + "?keyword=" + keyword + "'" + ";" +
                 "this.page.identifier = '" + keyword + "';" +
-                "};" + 
-                "(function() {" + 
-                "var d = document, s = d.createElement('script');" + 
-                "s.src = 'https://ttnoi.disqus.com/embed.js';" + 
+                "};" +
+                "(function() {" +
+                "var d = document, s = d.createElement('script');" +
+                "s.src = 'https://ttnoi.disqus.com/embed.js';" +
                 "s.setAttribute('data-timestamp', +new Date());" +
-                "(d.head || d.body).appendChild(s);" + 
+                "(d.head || d.body).appendChild(s);" +
                 "})();";
             commentSystemTag.appendChild(disqusScriptTag);
 
