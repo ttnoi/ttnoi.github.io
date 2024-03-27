@@ -154,7 +154,7 @@
 
             // 4.2 Change title
             document.title = keyword + ": Luyện phát âm cùng Tổng Thống Mỹ."
-            
+
             // 4.3 Load GATA suggestion
             updateGATASuggestion(keyword);
 
@@ -164,14 +164,32 @@
             // 4.5 Load comment system
             loadCommentSystem(keyword);
 
+            // 4.6 Set a cookie for reusing
+            setCookie("keyword", keyword, 30);
+            setCookie("speaker", speaker, 30);
         }
 
         // Querying when user 
         window.onload = function () {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const preDefinedKeyword = urlParams.get('keyword');
-            const preDefinedSpeaker = urlParams.get('speaker');
+            var preDefinedKeyword = urlParams.get('keyword');
+            var preDefinedSpeaker = urlParams.get('speaker');
+
+            if (preDefinedKeyword == null || preDefinedKeyword == "") {
+                var cKeyword = getCookie("keyword");
+                if (cKeyword != null && cKeyword != "") {
+                    preDefinedKeyword = cKeyword;
+                }
+            }
+            if (preDefinedSpeaker == null || preDefinedSpeaker == "") {
+                var cSpeaker = getCookie("speaker");
+                if (cSpeaker != null && cSpeaker != "") {
+                    preDefinedSpeaker = cSpeaker;
+                } else {
+                    preDefinedSpeaker = "donaldtrump";
+                }
+            }
 
             switch (preDefinedSpeaker) {
                 case "donaldtrump":
@@ -361,6 +379,29 @@
                 "})();";
             commentSystemTag.appendChild(disqusScriptTag);
 
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
         }
     </script>
 </body>
