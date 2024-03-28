@@ -101,6 +101,11 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col border-bottom my-4 text-start">
+                            <h2 style="color:orange;" id="comment-title">Bình luận cách phát âm từ vựng 'free':</h2>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <div id="share">
                                 <span id="share-url"></span>&nbsp;<button id="share-button">Copy để chia sẻ</button>
@@ -202,6 +207,7 @@
             updateShareUrl(keyword, speaker);
 
             // 4.5 Load comment system
+            changeCommentTitle(keyword);
             loadCommentSystem(keyword);
 
             // 4.6 Set a cookie for reusing
@@ -394,6 +400,11 @@
             return ["h", "ə", "l", "əʊ"];
         };
 
+        function changeCommentTitle(keyword) {
+            var commentTitle = document.getElementById("comment-title");
+            commentTitle.innerText = "Bình luận cách phát âm từ vựng '" +keyword+ "':"
+        }
+        
         function loadCommentSystem(keyword) {
             var commentSystemTag = document.getElementById("comment-system");
             while (commentSystemTag.firstChild) {
