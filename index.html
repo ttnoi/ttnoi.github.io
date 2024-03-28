@@ -183,7 +183,7 @@
         var widget;
         function onYouglishAPIReady() {
             widget = new YG.Widget("search-content", {
-                components: 8 + 64, //caption(8)       
+                components: 8 + 16+ 64 + 128 + 512, //caption(8), Speed controls(16), Control Buttons(64), Dictionary support(128), Phonetic panel(512)
             })
         }
 
