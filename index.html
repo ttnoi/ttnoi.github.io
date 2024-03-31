@@ -194,6 +194,9 @@
         function onYouglishAPIReady() {
             widget = new YG.Widget("search-content", {
                 components: 8 + 16 + 64 + 128 + 512, //caption(8), Speed controls(16), Control Buttons(64), Dictionary support(128), Phonetic panel(512)
+                events: {
+                    'onFetchDone': onYouglishFetchDone
+                }
             })
         }
 
@@ -205,19 +208,33 @@
             // 4.2 Change title
             document.title = keyword + ": Luyện phát âm cùng Tổng Thống Mỹ."
 
+
+        }
+
+        function onYouglishFetchDone(event) {
+            var query = event.query;
+            var args = query.split("#");
+            var queriedKeyword = args[0].trim();
+            if (args.length >= 2) {
+                var queriedSpeaker = args[1].trim();
+            } else {
+                var queriedSpeaker = null;
+            }
             // 4.3 Load GATA suggestion
             // updateGATASuggestion(keyword);
 
             // 4.4 Change share url
-            updateShareUrl(keyword, speaker);
+            updateShareUrl(queriedKeyword, queriedSpeaker);
 
             // 4.5 Load comment system
-            changeCommentTitle(keyword);
-            loadCommentSystem(keyword);
+            changeCommentTitle(queriedKeyword);
+            loadCommentSystem(queriedKeyword);
 
             // 4.6 Set a cookie for reusing
-            setCookie("keyword", keyword, 30);
-            setCookie("speaker", speaker, 30);
+            setCookie("keyword", queriedKeyword, 30);
+            if (queriedSpeaker) {
+                setCookie("speaker", queriedSpeaker, 30);
+            }
         }
 
         $(function () {
@@ -307,7 +324,12 @@
         }
 
         function updateShareUrl(keyword, speaker) {
-            var url = WEBSITE_URL + "?speaker=" + speaker + "&keyword=" + keyword;
+            if (speaker) {
+                var url = WEBSITE_URL + "?speaker=" + speaker + "&keyword=" + keyword;
+            } else {
+                var url = WEBSITE_URL + "?keyword=" + keyword;
+            }
+
             document.getElementById("share-url").textContent = url;
         }
 
