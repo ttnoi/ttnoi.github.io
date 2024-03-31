@@ -205,10 +205,9 @@
             // 4.1 Fetch the result from Youglish
             widget.fetch(keyword + " #" + speaker, "english", "us");
 
-            // 4.2 Change title
-            document.title = keyword + ": Luyện phát âm cùng Tổng Thống Mỹ."
-
-
+            hidenCommentTitle();
+            hidenShareUrl();
+            hidenCommentSystem();
         }
 
         function onYouglishFetchDone(event) {
@@ -220,14 +219,19 @@
             } else {
                 var queriedSpeaker = null;
             }
+
+            // 4.2 Change title
+            document.title = keyword + ": Luyện phát âm cùng Tổng Thống Mỹ."
+
             // 4.3 Load GATA suggestion
             // updateGATASuggestion(keyword);
+
+            changeCommentTitle(queriedKeyword);
 
             // 4.4 Change share url
             updateShareUrl(queriedKeyword, queriedSpeaker);
 
             // 4.5 Load comment system
-            changeCommentTitle(queriedKeyword);
             loadCommentSystem(queriedKeyword);
 
             // 4.6 Set a cookie for reusing
@@ -323,7 +327,35 @@
             });
         }
 
+        function hidenCommentTitle() {
+            const commentTitleTag = document.getElementById("comment-title");
+            if (!commentTitleTag.classList.contains("d-none")) {
+                commentTitleTag.classList.add("d-none");
+            }
+        }
+
+        function changeCommentTitle(keyword) {
+            const commentTitleTag = document.getElementById("comment-title");
+            if (commentTitleTag.classList.contains("d-none")) {
+                commentTitleTag.classList.remove("d-none");
+            }
+
+            commentTitleTag.innerText = "Bình luận cách phát âm từ vựng '" + keyword + "':"
+        }
+
+        function hidenShareUrl() {
+            const shareTag = document.getElementById("share");
+            if (!shareTag.classList.contains("d-none")) {
+                shareTag.classList.add("d-none");
+            }
+        }
+
         function updateShareUrl(keyword, speaker) {
+            const shareTag = document.getElementById("share");
+            if (shareTag.classList.contains("d-none")) {
+                shareTag.classList.remove("d-none");
+            }
+
             if (speaker) {
                 var url = WEBSITE_URL + "?speaker=" + speaker + "&keyword=" + keyword;
             } else {
@@ -427,9 +459,11 @@
             return ["h", "ə", "l", "əʊ"];
         };
 
-        function changeCommentTitle(keyword) {
-            var commentTitle = document.getElementById("comment-title");
-            commentTitle.innerText = "Bình luận cách phát âm từ vựng '" + keyword + "':"
+        function hidenCommentSystem() {
+            var commentSystemTag = document.getElementById("comment-system");
+            while (commentSystemTag.firstChild) {
+                commentSystemTag.removeChild(commentSystemTag.firstChild);
+            }
         }
 
         function loadCommentSystem(keyword) {
