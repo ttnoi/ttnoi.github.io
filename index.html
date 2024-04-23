@@ -62,9 +62,9 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <input type="radio" name="speaker" id="hillary-clinton" class="speakerCheckbox"
-                                            value="hillaryclinton">
-                                        <label>Hillary Clinton</label>
+                                        <input type="radio" name="speaker" id="undefined" class="speakerCheckbox"
+                                            value="undefined">
+                                        <label>Không xác định</label>
                                     </div>
                                 </div>
                             </div>
@@ -203,7 +203,12 @@
         // 4. Process the query
         function search(keyword, speaker) {
             // 4.1 Fetch the result from Youglish
-            widget.fetch(keyword + " #" + speaker, "english", "us");
+            if (speaker == "undefined") {
+                widget.fetch(keyword, "english", "us");
+            } else {
+                widget.fetch(keyword + " #" + speaker, "english", "us");
+            }
+
 
             hidenCommentTitle();
             hidenShareUrl();
@@ -274,8 +279,8 @@
                 case "barackobama":
                     document.getElementById("barack-obama").checked = true;
                     break;
-                case "hillaryclinton":
-                    document.getElementById("hillary-clinton").checked = true;
+                case "undefined":
+                    document.getElementById("undefined").checked = true;
                     break;
             }
 
@@ -312,7 +317,7 @@
         document.getElementById('barack-obama').onclick = function () {
             document.getElementById("search-button").click();
         };
-        document.getElementById('hillary-clinton').onclick = function () {
+        document.getElementById('undefined').onclick = function () {
             document.getElementById("search-button").click();
         };
 
