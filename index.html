@@ -49,22 +49,28 @@
                         <div class="col">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-4">
-                                        <input type="radio" name="speaker" id="donald-trump" class="speakerCheckbox"
-                                            value="donaldtrump" checked="true">
-                                        <label>Donald Trump</label>
+                                    <div class="col-3 form-check">
+                                        <input type="radio" name="speaker" id="donald-trump"
+                                            class="speakerCheckbox form-check-input" value="donaldtrump" checked="true">
+                                        <label class="form-check-label" for="donald-trump">Donald Trump</label>
                                     </div>
 
-                                    <div class="col-4">
-                                        <input type="radio" name="speaker" id="barack-obama" class="speakerCheckbox"
-                                            value="barackobama">
-                                        <label>Barack Obama</label>
+                                    <div class="col-3 form-check">
+                                        <input type="radio" name="speaker" id="barack-obama"
+                                            class="speakerCheckbox form-check-input" value="barackobama">
+                                        <label class="form-check-label" for="barack-obama">Barack Obama</label>
                                     </div>
 
-                                    <div class="col-4">
-                                        <input type="radio" name="speaker" id="undefined" class="speakerCheckbox"
-                                            value="undefined">
-                                        <label>Không xác định</label>
+                                    <div class="col-3 form-check">
+                                        <input type="radio" name="speaker" id="us"
+                                            class="speakerCheckbox form-check-input" value="us">
+                                        <label class="form-check-label" for="us">Anh-Mỹ</label>
+                                    </div>
+
+                                    <div class="col-3 form-check">
+                                        <input type="radio" name="speaker" id="uk"
+                                            class="speakerCheckbox form-check-input" value="uk">
+                                        <label class="form-check-label" for="uk">Anh-Anh</label>
                                     </div>
                                 </div>
                             </div>
@@ -203,10 +209,14 @@
         // 4. Process the query
         function search(keyword, speaker) {
             // 4.1 Fetch the result from Youglish
-            if (speaker == "undefined") {
+            if (speaker == "us") {
                 widget.fetch(keyword, "english", "us");
             } else {
-                widget.fetch(keyword + " #" + speaker, "english", "us");
+                if (speaker == "uk") {
+                    widget.fetch(keyword, "english", "uk");
+                } else {
+                    widget.fetch(keyword + " #" + speaker, "english", "us");
+                }
             }
 
 
@@ -279,8 +289,11 @@
                 case "barackobama":
                     document.getElementById("barack-obama").checked = true;
                     break;
-                case "undefined":
-                    document.getElementById("undefined").checked = true;
+                case "us":
+                    document.getElementById("us").checked = true;
+                    break;
+                case "uk":
+                    document.getElementById("uk").checked = true;
                     break;
             }
 
@@ -317,7 +330,10 @@
         document.getElementById('barack-obama').onclick = function () {
             document.getElementById("search-button").click();
         };
-        document.getElementById('undefined').onclick = function () {
+        document.getElementById('us').onclick = function () {
+            document.getElementById("search-button").click();
+        };
+        document.getElementById('uk').onclick = function () {
             document.getElementById("search-button").click();
         };
 
